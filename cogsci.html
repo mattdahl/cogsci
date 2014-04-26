@@ -3,23 +3,40 @@
 </head>
 
 <body>
-	<img class="card" src="cards/1.png" data-is-set="true">
-	<img class="card" src="cards/2.png" data-is-set="false">
-	<img class="card" src="cards/3.png" data-is-set="true">
-	<img class="card" src="cards/4.png" data-is-set="true">
-	<img class="card" src="cards/5.png" data-is-set="false">
-	<img class="card" src="cards/6.png" data-is-set="true">
-	<img class="card" src="cards/7.png" data-is-set="true">
-	<img class="card" src="cards/8.png" data-is-set="true">
-	<img class="card" src="cards/9.png" data-is-set="false">
-	<img class="card" src="cards/10.png" data-is-set="true">
-	<img class="card" src="cards/11.png" data-is-set="true">
-	<img class="card" src="cards/12.png" data-is-set="true">
-	<div id="instructions">
-		Set? Y or N.
+	<div id="welcome">
+		<h1>Cognitive Science Experiment.</h1>
+		<p>
+			<b>Instructions:</b> Determine if each of the following pairs of cards is a SET. Two cards are a SET if they are alike in shape, color, or opacity - or share more than one similarity. Press the 'y' key if you think the cards form a SET, and the 'n' key if you do not. Try to work as quickly as possible without losing accuracy.
+			<br />
+			<br />
+			<b style="float: left;">Examples:</b>
+			<img src="cards/ex1.png" style="float: left;" data-is-set="true">
+			<img src="cards/ex2.png" style="float: left;" data-is-set="false">
+			<br />
+			<br />
+			<b style="clear: left; float: left;">Press any key to begin the experiment.</b>
+		</p>
+
 	</div>
-	<div id="audio_container">
-		<audio id="good_chord" src="audio/good_chord.wav" loop></audio>
-		<audio id="bad_chord" src="audio/bad_chord.wav" loop></audio>
+	<div id="experiment">
+		<img class="card" src="cards/1.png" data-is-set="true">
+		<img class="card" src="cards/2.png" data-is-set="false">
+		<img class="card" src="cards/3.png" data-is-set="true">
+		<img class="card" src="cards/4.png" data-is-set="true">
+		<img class="card" src="cards/5.png" data-is-set="false">
+		<img class="card" src="cards/6.png" data-is-set="true">
+		<img class="card" src="cards/7.png" data-is-set="true">
+		<img class="card" src="cards/8.png" data-is-set="true">
+		<img class="card" src="cards/9.png" data-is-set="false">
+		<img class="card" src="cards/10.png" data-is-set="true">
+		<img class="card" src="cards/11.png" data-is-set="true">
+		<img class="card" src="cards/12.png" data-is-set="true">
+		<div id="instructions">
+			Set? Y or N.
+		</div>
+		<div id="audio_container">
+			<audio id="good_chord" src="audio/good_chord.wav" loop></audio>
+			<audio id="bad_chord" src="audio/bad_chord.wav" loop></audio>
+		</div>
 	</div>
 </body>

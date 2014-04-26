@@ -22,6 +22,7 @@ if (Meteor.isClient) {
 		}
 		else if (current_card_index === 12 && current_state === 1) {
 			current_audio.pause();
+			$('#instructions').html('Thanks! All finished.');
 		}
 
 		var is_set;
@@ -44,6 +45,7 @@ if (Meteor.isClient) {
 
 		Responses.insert(response);
 
+		debugger;
 		current_card.toggleClass('current'); // Hide old current_card
 		current_card = $(cards[current_card_index++]); // Advance to the new current_card
 		current_card.toggleClass('current'); // Present the new current_card
@@ -51,15 +53,22 @@ if (Meteor.isClient) {
 		timer = new Date(); // Reset timer
 	};
 
-	$(document).ready(function () {
+	var load_experiment = function (event) {
+		$('#welcome').hide();
 		cards = _.shuffle($('.card'));
 		current_card = $(cards[current_card_index]);
 		current_card.toggleClass('current');
 		timer = new Date();
 		current_audio = $('#good_chord')[0];
 		current_audio.play();
+		$('#experiment').show();
 
+		$(document).off('keypress', load_experiment);
 		$(document).on('keypress', present_next_card);
+	};
+
+	$(document).ready(function () {
+		$(document).on('keypress', load_experiment);
 	});
 }
 
