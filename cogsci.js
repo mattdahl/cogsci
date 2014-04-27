@@ -7,6 +7,31 @@ if (Meteor.isClient) {
 	var timer = null;
 
 	var present_next_card = function (event) {
+		// Save the response to the previous card
+		var is_set;
+		if (event.keyCode == 121) {
+			is_set = true;
+		}
+		else if (event.keyCode == 110) {
+			is_set = false;
+		}
+		else {
+			return false;
+		}
+
+		var response = {
+			user_id: parseInt($('#user_id').html(), 10),
+			card_id: current_card.attr('src'),
+			card_index: current_card_index,
+			chord: $(current_audio).data('chord-type'),
+			response_time: (new Date()) - timer,
+			response: is_set,
+			is_correct: is_set === current_card.data('is-set')
+		};
+
+		Responses.insert(response);
+
+		// Load the next card
 		if (current_state === 0) {
 			if (current_card_index < 11) {
 				current_card.toggleClass('current'); // Hide old current_card
@@ -43,29 +68,6 @@ if (Meteor.isClient) {
 				$('#instructions').html('Thanks! All finished.');
 			}
 		}
-
-		var is_set;
-		if (event.keyCode == 121) {
-			is_set = true;
-		}
-		else if (event.keyCode == 110) {
-			is_set = false;
-		}
-		else {
-			return false;
-		}
-
-		var response = {
-			user_id: parseInt($('#user_id').html(), 10),
-			card_id: current_card.attr('src'),
-			card_index: current_card_index,
-			chord: $(current_audio).data('chord-type'),
-			response_time: (new Date()) - timer,
-			response: is_set,
-			is_correct: is_set === current_card.data('is-set')
-		};
-
-		Responses.insert(response);
 	};
 
 	var load_experiment = function (event) {
