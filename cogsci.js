@@ -58,6 +58,8 @@ if (Meteor.isClient) {
 		var response = {
 			user_id: parseInt($('#user_id').html(), 10),
 			card_id: current_card.attr('src'),
+			card_index: current_card_index,
+			chord: $(current_audio).data('chord-type'),
 			response_time: (new Date()) - timer,
 			response: is_set,
 			is_correct: is_set === current_card.data('is-set')
