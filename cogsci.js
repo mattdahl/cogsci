@@ -9,10 +9,10 @@ if (Meteor.isClient) {
 	var present_next_card = function (event) {
 		// Save the response to the previous card
 		var is_set;
-		if (event.keyCode == 121) {
+		if (event.which == 121) {
 			is_set = true;
 		}
-		else if (event.keyCode == 110) {
+		else if (event.which == 110) {
 			is_set = false;
 		}
 		else {
@@ -66,6 +66,7 @@ if (Meteor.isClient) {
 				current_card.toggleClass('current');
 				current_audio.pause();
 				$('#instructions').html('Thanks! All finished.');
+				$(document).off('keypress', present_next_card);
 			}
 		}
 	};
