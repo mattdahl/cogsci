@@ -7,22 +7,41 @@ if (Meteor.isClient) {
 	var timer = null;
 
 	var present_next_card = function (event) {
-		if (current_card_index === 11 && current_state === 0) {
-			current_card.toggleClass('current');
-			current_card_index = 0;
-			cards = _.shuffle($('.card'));
-			current_card = $(cards[current_card_index]);
-			current_card.toggleClass('current');
+		if (current_state === 0) {
+			if (current_card_index < 11) {
+				current_card.toggleClass('current'); // Hide old current_card
+				current_card = $(cards[++current_card_index]); // Advance to the new current_card
+				current_card.toggleClass('current'); // Present the new current_card
 
-			current_audio.pause();
-			current_audio = $('#bad_chord')[0];
-			current_audio.play();
+				timer = new Date(); // Reset timer
+			}
+			else {
+				current_card.toggleClass('current');
+				current_card_index = 0;
+				cards = _.shuffle($('.card'));
+				current_card = $(cards[current_card_index]);
+				current_card.toggleClass('current');
 
-			current_state = 1;
+				current_audio.pause();
+				current_audio = $('#bad_chord')[0];
+				current_audio.play();
+
+				current_state = 1;
+			}
 		}
-		else if (current_card_index === 11 && current_state === 1) {
-			current_audio.pause();
-			$('#instructions').html('Thanks! All finished.');
+		else if (current_state === 1) {
+			if (current_card_index < 11) {
+				current_card.toggleClass('current'); // Hide old current_card
+				current_card = $(cards[++current_card_index]); // Advance to the new current_card
+				current_card.toggleClass('current'); // Present the new current_card
+
+				timer = new Date(); // Reset timer
+			}
+			else {
+				current_card.toggleClass('current');
+				current_audio.pause();
+				$('#instructions').html('Thanks! All finished.');
+			}
 		}
 
 		var is_set;
@@ -37,6 +56,7 @@ if (Meteor.isClient) {
 		}
 
 		var response = {
+			user_id: parseInt($('#user_id').html(), 10),
 			card_id: current_card.attr('src'),
 			response_time: (new Date()) - timer,
 			response: is_set,
@@ -44,12 +64,6 @@ if (Meteor.isClient) {
 		};
 
 		Responses.insert(response);
-
-		current_card.toggleClass('current'); // Hide old current_card
-		current_card = $(cards[++current_card_index]); // Advance to the new current_card
-		current_card.toggleClass('current'); // Present the new current_card
-
-		timer = new Date(); // Reset timer
 	};
 
 	var load_experiment = function (event) {
@@ -68,6 +82,9 @@ if (Meteor.isClient) {
 	};
 
 	$(document).ready(function () {
+		Deps.autorun(function () {
+			$('#user_id').html(parseInt(Responses.find().count() / 24, 10));
+		});
 		$(document).on('keypress', load_experiment);
 	});
 }
