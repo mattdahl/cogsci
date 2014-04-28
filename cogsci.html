@@ -4,20 +4,36 @@
 
 <body>
 	<div id="welcome">
-		<h1>Cognitive Science Experiment.</h1>
+		<h1>Cognitive Science Experiment</h1>
 		<p>
-			<b>Instructions:</b> Determine if each of the following pairs of cards is a SET. Two cards are a SET if they are alike in shape, color, or opacity - or share more than one similarity. Press the 'y' key if you think the cards form a SET, and the 'n' key if you do not. Try to work as quickly as possible without losing accuracy.
+			<b>User Id:</b> <span id="user_id"></span>
+		</p>
+		<p>
+			<b>Instructions:</b> Determine if each of the following pairs of cards is a SET.
+			<ul>
+				<li>
+					Two cards <b>are</b> a SET if they are alike in shape, color, or opacity - or share more than one similarity.
+				</li>
+				<li>
+					Two cards <b>are not</b> a SET if they are dissimilar in every characteristic.
+				</li>
+			</ul>
+			Press the <b>Y</b> key if you think the cards form a SET, and the <b>N</b> key if you do not. Try to work as quickly as possible without losing accuracy. If you make a mistake, just keep going. There will be 24 pairs.
 			<br />
 			<br />
-			<b style="float: left;">Examples:</b>
-			<img src="cards/ex1.png" style="float: left;" data-is-set="true">
-			<img src="cards/ex2.png" style="float: left;" data-is-set="false">
+			<p>
+				<b>Examples:</b>
+			</p>
+			<img src="cards/ex1.png" style="float: left;">
+			<img src="cards/ex2.png" style="float: left;">
+			<div style="clear: left;"></div>
+			<hr>
+			<img src="cards/ex3.png" style="float: left;">
+			<img src="cards/ex4.png" style="float: left;">
+			<hr style="clear: left;">
 		</p>
 		<p style="clear: left;">
 			<b>Press any key to begin the experiment.</b>
-		</p>
-		<p>
-			<b>User Id:</b> <span id="user_id"></span>
 		</p>
 	</div>
 	<div id="experiment">
