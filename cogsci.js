@@ -87,8 +87,12 @@ if (Meteor.isClient) {
 	};
 
 	$(document).ready(function () {
-		Deps.autorun(function () {
-			$('#user_id').html(parseInt(Responses.find().count() / 24, 10));
+		Deps.autorun(function (c) {
+			var user_id = parseInt(Responses.find().count() / 24, 10);
+			if (user_id) {
+				$('#user_id').html(parseInt(Responses.find().count() / 24, 10));
+				c.stop();
+			}
 		});
 		$(document).on('keypress', load_experiment);
 	});
