@@ -6,6 +6,7 @@ if (Meteor.isClient) {
 	var current_audio = null;
 	var current_state = 0;
 	var timer = null;
+	var user_id = null;
 
 	var present_next_card = function (event) {
 		// Save the response to the previous card
@@ -21,7 +22,7 @@ if (Meteor.isClient) {
 		}
 
 		var response = {
-			user_id: parseInt($('#user_id').html(), 10),
+			user_id: user_id,
 			card_id: current_card.attr('src'),
 			card_index: current_card_index,
 			chord: $(current_audio).data('chord-type'),
@@ -90,15 +91,13 @@ if (Meteor.isClient) {
 		$(document).off('keypress', load_experiment);
 		$(document).on('keypress', present_next_card);
 		$(document).focus();
+
+		user_id = parseInt($('#user_id').html(), 10);
 	};
 
 	$(document).ready(function () {
-		Deps.autorun(function (c) {
-			var user_id = parseInt(Responses.find().count() / 24, 10);
-			if (user_id) {
-				$('#user_id').html(parseInt(Responses.find().count() / 24, 10));
-				c.stop();
-			}
+		Deps.autorun(function () {
+			$('#user_id').html(parseInt(Responses.find().count() / 24, 10));
 		});
 		$(document).on('keypress', load_experiment);
 	});
