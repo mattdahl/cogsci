@@ -2,6 +2,7 @@ if (Meteor.isClient) {
 	var cards = [];
 	var current_card = null;
 	var current_card_index = 0;
+	var audios = [];
 	var current_audio = null;
 	var current_state = 0;
 	var timer = null;
@@ -24,6 +25,7 @@ if (Meteor.isClient) {
 			card_id: current_card.attr('src'),
 			card_index: current_card_index,
 			chord: $(current_audio).data('chord-type'),
+			good_chord_first: $(audios[0]).data('chord-type') === 'good',
 			response_time: (new Date()) - timer,
 			response: is_set,
 			is_correct: is_set === current_card.data('is-set')
@@ -48,7 +50,7 @@ if (Meteor.isClient) {
 				current_card.toggleClass('current');
 
 				current_audio.pause();
-				current_audio = $('#bad_chord')[0];
+				current_audio = audios[1];
 				current_audio.play();
 
 				current_state = 1;
@@ -76,9 +78,13 @@ if (Meteor.isClient) {
 		cards = _.shuffle($('.card'));
 		current_card = $(cards[current_card_index]);
 		current_card.toggleClass('current');
-		timer = new Date();
-		current_audio = $('#good_chord')[0];
+
+		audios = _.shuffle($('.chord'));
+		current_audio = audios[0];
 		current_audio.play();
+
+		timer = new Date();
+
 		$('#experiment').show();
 
 		$(document).off('keypress', load_experiment);
