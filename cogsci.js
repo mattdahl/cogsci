@@ -75,6 +75,10 @@ if (Meteor.isClient) {
 	};
 
 	var load_experiment = function (event) {
+		if (event.which !== 121) { // Listen to Y keypresses
+			return false;
+		}
+
 		$('#welcome').hide();
 		cards = _.shuffle($('.card'));
 		current_card = $(cards[current_card_index]);
