@@ -70,6 +70,9 @@ if (Meteor.isClient) {
 				current_audio.pause();
 				$('#instructions').html('Thanks! All finished.');
 				$(document).off('keypress', present_next_card);
+
+				// Send an email backup of the data just in case
+				Meteor.call('sendEmail', user_id);
 			}
 		}
 	};
