@@ -14,7 +14,8 @@ subprocess.call(['mongoexport',
 	'-h', connection_data['host'],
 	'-db', connection_data['db'],
 	'--collection', 'responses',
-	'-o', 'cogsci_data_' + datetime.now().isoformat()
+	'-o', 'data/cogsci_data_' + datetime.now().isoformat() + '.json',
+	'--jsonArray'
 ])
 
 exit()
