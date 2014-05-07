@@ -14,7 +14,7 @@ for (i in data) {
   if (i[['chord']] == 'good') {
     response_times_per_user[i[['user_id']] + 1, 1] = response_times_per_user[i[['user_id']] + 1, 1] + i[['response_time']];
     response_times_per_card[as.numeric(gsub("\\D", "", i[['card_id']])), 1] = response_times_per_card[as.numeric(gsub("\\D", "", i[['card_id']])), 1] + i[['response_time']];
-    
+
     if (i[['is_correct']] == FALSE) {
       errors_per_user[i[['user_id']] + 1, 1] = errors_per_user[i[['user_id']] + 1, 1] + 1;
       errors_per_card[as.numeric(gsub("\\D", "", i[['card_id']])), 1] = errors_per_card[as.numeric(gsub("\\D", "", i[['card_id']])), 1] + 1;
@@ -23,13 +23,18 @@ for (i in data) {
   else if (i[['chord']] == 'bad') {
     response_times_per_user[i[['user_id']] + 1, 2] = response_times_per_user[i[['user_id']] + 1, 2] + i[['response_time']];
     response_times_per_card[as.numeric(gsub("\\D", "", i[['card_id']])), 2] = response_times_per_card[as.numeric(gsub("\\D", "", i[['card_id']])), 2] + i[['response_time']];
-    
+
     if (i[['is_correct']] == FALSE) {
       errors_per_user[i[['user_id']] + 1, 2] = errors_per_user[i[['user_id']] + 1, 2] + 1;
       errors_per_card[as.numeric(gsub("\\D", "", i[['card_id']])), 2] = errors_per_card[as.numeric(gsub("\\D", "", i[['card_id']])), 2] + 1;
     }
   }
 }
+
+# Remove rows with user_id's 17 and 18 due to technical failures with those users
+# (should remove from per_card data too, but it's going to be insigificant no matter what, and I hate writing complicated R code)
+response_times_per_user = response_times_per_user[-(18:19),];
+errors_per_user = errors_per_user[-(18:19),];
 
 response_times_per_user = response_times_per_user / 12; # Take average response times for each user for ALL cards
 response_times_per_card = response_times_per_card / (length(data) / 24); # Take average times for each card for ALL users
